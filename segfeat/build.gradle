@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'info.picocli:picocli:3.8.0'
+    implementation 'com.opencsv:opencsv:4.4'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.uni_freiburg.iems.beatit.cli'
+    }
+
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+sourceCompatibility = "8"
+targetCompatibility = "8"
